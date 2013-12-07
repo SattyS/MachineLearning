@@ -106,36 +106,6 @@ a = 1:10;
 Del1 = (zeros(size(Theta1)))';
 Del2 = (zeros(size(Theta2)))';
 
-for t=1:m
-	
-
-		Z_Cell1 = tempX(t,:) * Theta1'; % 1*401 . 401*25
-		Act_Cell1 = [1 sigmoid(Z_Cell1)];
-		
-		Z_Cell2 = Act_Cell1 * Theta2' ; % 1*26 . 26*10 
-		Act_Cell2 = sigmoid(Z_Cell2);
-
-		yy_temp = (a  == y(t)); % 1*10
-		delta_Cell2 = Act_Cell2 - yy_temp; % 1*10
-		
-		dt = delta_Cell2 * Theta2;
-		delta_Cell1 = dt(2:end) .* sigmoidGradient(Z_Cell1); % 1*25
-		
-		Del1 = Del1 + tempX(t,:)' * delta_Cell1; % 401*1 . 1*25 
-		Del2 = Del2 + Act_Cell1' * delta_Cell2;  % 26*1 . 1*10
-		
-		
-		Theta1_grad = Del1';
-		Theta2_grad = Del2';
-		
-endfor
-
-Theta1_grad = (1/m) .* Theta1_grad;
-Theta2_grad = (1/m) .* Theta2_grad;
-
-
-
-
 for t = 1:m
 
         % For the input layer, where l=1:
